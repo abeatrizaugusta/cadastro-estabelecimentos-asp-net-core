@@ -21,5 +21,11 @@ namespace CadastroEstabelecimentos.Services
         {
             return _context.Estabelecimento.ToList();
         }
+
+        public void Insert(Estabelecimento obj) //inserir dados do estabelecimento no DB
+        {
+            _context.Add(obj);
+            _context.SaveChanges();
+        }
     }
 }
