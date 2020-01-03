@@ -6,6 +6,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.EntityFrameworkCore;
 using CadastroEstabelecimentos.Models;
+using CadastroEstabelecimentos.Services;
 
 namespace CadastroEstabelecimentos
 {
@@ -24,7 +25,8 @@ namespace CadastroEstabelecimentos
 
             services.AddDbContext<CadastroEstabelecimentosContext>(options =>
                     options.UseMySql(Configuration.GetConnectionString("CadastroEstabelecimentosContext"), builder =>
-                        builder.MigrationsAssembly("CadastroEstabelecimentos")));    
+                        builder.MigrationsAssembly("CadastroEstabelecimentos")));
+            services.AddScoped<EstabelecimentoService>();
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
