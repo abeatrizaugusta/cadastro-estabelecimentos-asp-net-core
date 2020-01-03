@@ -18,7 +18,7 @@ namespace CadastroEstabelecimentos.Models
         public string Conta { get; set; }
         public EstabeStatus Status { get; set; } //Ativo ou Inativo
         public Categoria Categoria { get; set; } //Categoria do Estabelecimento (Supermercado, Restaurante, Borracharia, Posto, Oficina)
-
+        public int CategoriaId { get; set; } //garantir que o campo Categoria não será nulo
         public Estabelecimento()
         {
 

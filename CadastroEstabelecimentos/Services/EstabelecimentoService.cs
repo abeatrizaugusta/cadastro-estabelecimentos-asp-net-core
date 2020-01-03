@@ -24,6 +24,7 @@ namespace CadastroEstabelecimentos.Services
 
         public void Insert(Estabelecimento obj) //inserir dados do estabelecimento no DB
         {
+            obj.Categoria = _context.Categoria.First();
             _context.Add(obj);
             _context.SaveChanges();
         }
