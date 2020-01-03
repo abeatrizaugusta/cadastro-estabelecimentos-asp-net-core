@@ -13,6 +13,7 @@ namespace CadastroEstabelecimentos.Models
         {
         }
 
-        public DbSet<CadastroEstabelecimentos.Models.Categoria> Categoria { get; set; }
+        public DbSet<Categoria> Categoria { get; set; }
+        public DbSet<Estabelecimento> Estabelecimento { get; set; }
     }
 }
