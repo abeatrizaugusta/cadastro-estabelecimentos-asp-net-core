@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using CadastroEstabelecimentos.Models;
@@ -30,7 +31,7 @@ namespace CadastroEstabelecimentos.Controllers
         {
             var categorias = _categoriaService.FindAll(); //carregar as categorias cadastradas no banco
             var viewModel = new EstabelecimentoFormViewModel { Categorias = categorias }; //carregar o formulário
-            return View(viewModel); 
+            return View(viewModel);
         }
 
         [HttpPost] //indicar que é uma ação de Post
@@ -44,13 +45,13 @@ namespace CadastroEstabelecimentos.Controllers
         {
             if (id == null) //se o id for null, retorna página de erro
             {
-                return NotFound();
+                return RedirectToAction(nameof(Error), new { message = "Id não fornecido" });
             }
 
             var obj = _estabelecimentoService.FindById(id.Value); //pega o objeto do id
             if (obj == null)
             {
-                return NotFound();
+                return RedirectToAction(nameof(Error), new { message = "Id não encontrado" });
             }
 
             return View(obj); //se não for null, retorna a view com o objeto confirmando a deleção
@@ -68,13 +69,13 @@ namespace CadastroEstabelecimentos.Controllers
         {
             if (id == null)
             {
-                return NotFound();
+                return RedirectToAction(nameof(Error), new { message = "Id não fornecido" });
             }
 
             var obj = _estabelecimentoService.FindById(id.Value);
             if (obj == null)
             {
-                return NotFound();
+                return RedirectToAction(nameof(Error), new { message = "Id não encontrado" });
             }
 
             return View(obj);
@@ -83,17 +84,17 @@ namespace CadastroEstabelecimentos.Controllers
         {
             if (id == null)
             {
-                return NotFound();
+                return RedirectToAction(nameof(Error), new { message = "Id não encontrado" });
             }
 
             var obj = _estabelecimentoService.FindById(id.Value);
             if (obj == null)
             {
-                return NotFound();
+                return RedirectToAction(nameof(Error), new { message = "Id não encontrado" });
             }
 
             List<Categoria> categorias = _categoriaService.FindAll(); //carregar as categorias para edição
-            EstabelecimentoFormViewModel viewModel = new EstabelecimentoFormViewModel { Estabelecimento = obj, Categorias = categorias}; //preenche o formulário com os dados do objeto
+            EstabelecimentoFormViewModel viewModel = new EstabelecimentoFormViewModel { Estabelecimento = obj, Categorias = categorias }; //preenche o formulário com os dados do objeto
             return View(viewModel);
         }
 
@@ -103,21 +104,28 @@ namespace CadastroEstabelecimentos.Controllers
         {
             if (id != estabelecimento.Id)
             {
-                return BadRequest();
+                return RedirectToAction(nameof(Error), new { message = "Id incompatível" });
             }
             try
             {
                 _estabelecimentoService.Update(estabelecimento);
                 return RedirectToAction(nameof(Index));
             }
-            catch (NotFoundException)
+            catch (ApplicationException e)
             {
-                return NotFound();
+                return RedirectToAction(nameof(Error), new { message = e.Message }); //mensagem da própria exceção
             }
-            catch (DbConcurrencyException)
+        }
+
+        public IActionResult Error(string message)
+        {
+            var viewModel = new ErrorViewModel
             {
-                return BadRequest();
-            }
+
+                Message = message,
+                RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier //pegar o id interno da requisição
+            };
+            return View(viewModel);
         }
     }
 }
