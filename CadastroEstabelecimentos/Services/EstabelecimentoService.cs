@@ -1,4 +1,5 @@
 ﻿using CadastroEstabelecimentos.Models;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -30,7 +31,7 @@ namespace CadastroEstabelecimentos.Services
         //retorna o estabelecimento que possui o id, se não existir, retorna null
         public Estabelecimento FindById(int id)
         {
-            return _context.Estabelecimento.FirstOrDefault(obj => obj.Id == id);
+            return _context.Estabelecimento.Include(obj => obj.Categoria).FirstOrDefault(obj => obj.Id == id); //o include faz o join buscando também a categoria
         }
 
         //remover o objeto
