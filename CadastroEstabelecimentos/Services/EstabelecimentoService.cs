@@ -27,5 +27,19 @@ namespace CadastroEstabelecimentos.Services
             _context.Add(obj);
             _context.SaveChanges();
         }
+        //retorna o estabelecimento que possui o id, se não existir, retorna null
+        public Estabelecimento FindById(int id)
+        {
+            return _context.Estabelecimento.FirstOrDefault(obj => obj.Id == id);
+        }
+
+        //remover o objeto
+        public void Remove(int id)
+        {
+            var obj = _context.Estabelecimento.Find(id);
+            _context.Estabelecimento.Remove(obj);
+            _context.SaveChanges();
+        }
+
     }
 }

@@ -39,5 +39,28 @@ namespace CadastroEstabelecimentos.Controllers
             _estabelecimentoService.Insert(estabelecimento); //chama o método Insert de service (que cadastra no DB) e terna a View Index
             return RedirectToAction(nameof(Index));
         }
+        public IActionResult Delete(int? id)
+        {
+            if (id == null) //se o id for null, retorna página de erro
+            {
+                return NotFound();
+            }
+
+            var obj = _estabelecimentoService.FindById(id.Value); //pega o objeto do id
+            if (obj == null)
+            {
+                return NotFound();
+            }
+
+            return View(obj); //se não for null, retorna a view com o objeto confirmando a deleção
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult Delete(int id)
+        {
+            _estabelecimentoService.Remove(id);
+            return RedirectToAction(nameof(Index));
+        }
     }
 }
