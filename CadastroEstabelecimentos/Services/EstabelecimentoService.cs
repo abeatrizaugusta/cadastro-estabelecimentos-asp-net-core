@@ -1,4 +1,5 @@
 ﻿using CadastroEstabelecimentos.Models;
+using CadastroEstabelecimentos.Services.Exceptions;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -40,6 +41,22 @@ namespace CadastroEstabelecimentos.Services
             var obj = _context.Estabelecimento.Find(id);
             _context.Estabelecimento.Remove(obj);
             _context.SaveChanges();
+        }
+        public void Update(Estabelecimento obj)
+        {
+            if (!_context.Estabelecimento.Any(x => x.Id == obj.Id)) //verfica se o id existe no banco
+            {
+                throw new NotFoundException("Id not found"); 
+            }
+            try 
+            {
+                _context.Update(obj); //atualiza
+                _context.SaveChanges();
+            }
+            catch (DbUpdateConcurrencyException e) //exceção de concorrência do banco de dados
+            {
+                throw new DbConcurrencyException(e.Message); 
+            }
         }
 
     }

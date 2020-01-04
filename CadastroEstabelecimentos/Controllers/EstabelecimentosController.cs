@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using CadastroEstabelecimentos.Models;
 using CadastroEstabelecimentos.Models.ViewModels;
 using CadastroEstabelecimentos.Services;
+using CadastroEstabelecimentos.Services.Exceptions;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CadastroEstabelecimentos.Controllers
@@ -77,6 +78,46 @@ namespace CadastroEstabelecimentos.Controllers
             }
 
             return View(obj);
+        }
+        public IActionResult Edit(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var obj = _estabelecimentoService.FindById(id.Value);
+            if (obj == null)
+            {
+                return NotFound();
+            }
+
+            List<Categoria> categorias = _categoriaService.FindAll(); //carregar as categorias para edição
+            EstabelecimentoFormViewModel viewModel = new EstabelecimentoFormViewModel { Estabelecimento = obj, Categorias = categorias}; //preenche o formulário com os dados do objeto
+            return View(viewModel);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult Edit(int id, Estabelecimento estabelecimento)
+        {
+            if (id != estabelecimento.Id)
+            {
+                return BadRequest();
+            }
+            try
+            {
+                _estabelecimentoService.Update(estabelecimento);
+                return RedirectToAction(nameof(Index));
+            }
+            catch (NotFoundException)
+            {
+                return NotFound();
+            }
+            catch (DbConcurrencyException)
+            {
+                return BadRequest();
+            }
         }
     }
 }
