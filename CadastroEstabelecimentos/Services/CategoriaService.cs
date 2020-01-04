@@ -1,6 +1,8 @@
 ﻿using CadastroEstabelecimentos.Models;
+using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace CadastroEstabelecimentos.Services
 {
@@ -14,9 +16,9 @@ namespace CadastroEstabelecimentos.Services
         }
 
         //Listar as categorias ordenadas por nome
-        public List<Categoria> FindAll()
+        public async Task<List<Categoria>> FindAllAsync() //operação assíncrona
         {
-            return _context.Categoria.OrderBy(x => x.Nome).ToList(); 
+            return await _context.Categoria.OrderBy(x => x.Nome).ToListAsync();
         }
     }
 }

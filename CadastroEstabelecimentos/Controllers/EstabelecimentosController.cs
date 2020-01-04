@@ -21,34 +21,34 @@ namespace CadastroEstabelecimentos.Controllers
             _estabelecimentoService = estabelecimentoService;
             _categoriaService = categoriaService;
         }
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            var list = _estabelecimentoService.FindAll(); //retorna uma lista de estabelecimentos
+            var list = await _estabelecimentoService.FindAllAsync(); //retorna uma lista de estabelecimentos
             return View(list);
         }
 
-        public IActionResult Create()
+        public async Task<IActionResult> Create()
         {
-            var categorias = _categoriaService.FindAll(); //carregar as categorias cadastradas no banco
+            var categorias = await _categoriaService.FindAllAsync(); //carregar as categorias cadastradas no banco
             var viewModel = new EstabelecimentoFormViewModel { Categorias = categorias }; //carregar o formulário
             return View(viewModel);
         }
 
         [HttpPost] //indicar que é uma ação de Post
         [ValidateAntiForgeryToken] //evitar ataques
-        public IActionResult Create(Estabelecimento estabelecimento)
+        public async Task<IActionResult> Create(Estabelecimento estabelecimento)
         {
-            _estabelecimentoService.Insert(estabelecimento); //chama o método Insert de service (que cadastra no DB) e terna a View Index
+            await _estabelecimentoService.InsertAsync(estabelecimento);
             return RedirectToAction(nameof(Index));
         }
-        public IActionResult Delete(int? id)
+        public async Task<IActionResult> Delete(int? id)
         {
             if (id == null) //se o id for null, retorna página de erro
             {
                 return RedirectToAction(nameof(Error), new { message = "Id não fornecido" });
             }
 
-            var obj = _estabelecimentoService.FindById(id.Value); //pega o objeto do id
+            var obj = await _estabelecimentoService.FindByIdAsync(id.Value); //pega o objeto do id
             if (obj == null)
             {
                 return RedirectToAction(nameof(Error), new { message = "Id não encontrado" });
@@ -59,20 +59,20 @@ namespace CadastroEstabelecimentos.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Delete(int id)
+        public async Task<IActionResult> Delete(int id)
         {
-            _estabelecimentoService.Remove(id);
+            await _estabelecimentoService.RemoveAsync(id);
             return RedirectToAction(nameof(Index));
         }
 
-        public IActionResult Details(int? id)
+        public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
             {
                 return RedirectToAction(nameof(Error), new { message = "Id não fornecido" });
             }
 
-            var obj = _estabelecimentoService.FindById(id.Value);
+            var obj = await _estabelecimentoService.FindByIdAsync(id.Value);
             if (obj == null)
             {
                 return RedirectToAction(nameof(Error), new { message = "Id não encontrado" });
@@ -80,27 +80,26 @@ namespace CadastroEstabelecimentos.Controllers
 
             return View(obj);
         }
-        public IActionResult Edit(int? id)
+        public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
             {
                 return RedirectToAction(nameof(Error), new { message = "Id não encontrado" });
             }
 
-            var obj = _estabelecimentoService.FindById(id.Value);
+            var obj = await _estabelecimentoService.FindByIdAsync(id.Value);
             if (obj == null)
             {
                 return RedirectToAction(nameof(Error), new { message = "Id não encontrado" });
             }
-
-            List<Categoria> categorias = _categoriaService.FindAll(); //carregar as categorias para edição
+            List<Categoria> categorias = await _categoriaService.FindAllAsync(); //carregar as categorias para edição
             EstabelecimentoFormViewModel viewModel = new EstabelecimentoFormViewModel { Estabelecimento = obj, Categorias = categorias }; //preenche o formulário com os dados do objeto
             return View(viewModel);
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Edit(int id, Estabelecimento estabelecimento)
+        public async Task<IActionResult> Edit(int id, Estabelecimento estabelecimento)
         {
             if (id != estabelecimento.Id)
             {
@@ -108,7 +107,7 @@ namespace CadastroEstabelecimentos.Controllers
             }
             try
             {
-                _estabelecimentoService.Update(estabelecimento);
+                await _estabelecimentoService.UpdateAsync(estabelecimento);
                 return RedirectToAction(nameof(Index));
             }
             catch (ApplicationException e)
@@ -117,7 +116,7 @@ namespace CadastroEstabelecimentos.Controllers
             }
         }
 
-        public IActionResult Error(string message)
+        public IActionResult Error(string message) //não precisa ser assíncrona pq não tem acesso a dados
         {
             var viewModel = new ErrorViewModel
             {

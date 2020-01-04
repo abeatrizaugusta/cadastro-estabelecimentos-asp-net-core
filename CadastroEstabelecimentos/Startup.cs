@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Globalization;
+using Microsoft.AspNetCore.Localization;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -7,6 +9,7 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.EntityFrameworkCore;
 using CadastroEstabelecimentos.Models;
 using CadastroEstabelecimentos.Services;
+using System.Collections.Generic;
 
 namespace CadastroEstabelecimentos
 {
@@ -32,6 +35,15 @@ namespace CadastroEstabelecimentos
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
+            var enUS = new CultureInfo("en-US");
+            var localizationOptions = new RequestLocalizationOptions
+            {
+                DefaultRequestCulture = new RequestCulture(enUS),
+                SupportedCultures = new List<CultureInfo> { enUS },
+                SupportedUICultures = new List<CultureInfo> { enUS }
+            };
+
+            app.UseRequestLocalization(localizationOptions);
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();

@@ -19,39 +19,40 @@ namespace CadastroEstabelecimentos.Services
             _context = context;
         }
         //FindAll para retornar uma lista com todos estabelecimentos cadastrados no banco de dados
-        public List<Estabelecimento> FindAll()
+        public async Task<List<Estabelecimento>> FindAllAsync()
         {
-            return _context.Estabelecimento.ToList();
+            return await _context.Estabelecimento.ToListAsync();
         }
 
-        public void Insert(Estabelecimento obj) //inserir dados do estabelecimento no DB
+        public async Task InsertAsync(Estabelecimento obj) //inserir dados do estabelecimento no DB
         {
             _context.Add(obj);
-            _context.SaveChanges();
+            await _context.SaveChangesAsync();
         }
         //retorna o estabelecimento que possui o id, se não existir, retorna null
-        public Estabelecimento FindById(int id)
+        public async Task<Estabelecimento> FindByIdAsync(int id)
         {
-            return _context.Estabelecimento.Include(obj => obj.Categoria).FirstOrDefault(obj => obj.Id == id); //o include faz o join buscando também a categoria
+            return await _context.Estabelecimento.Include(obj => obj.Categoria).FirstOrDefaultAsync(obj => obj.Id == id);
         }
 
         //remover o objeto
-        public void Remove(int id)
+        public async Task RemoveAsync(int id)
         {
-            var obj = _context.Estabelecimento.Find(id);
+            var obj = await _context.Estabelecimento.FindAsync(id);
             _context.Estabelecimento.Remove(obj);
-            _context.SaveChanges();
+            await _context.SaveChangesAsync();
         }
-        public void Update(Estabelecimento obj)
+        public async Task UpdateAsync(Estabelecimento obj)
         {
-            if (!_context.Estabelecimento.Any(x => x.Id == obj.Id)) //verfica se o id existe no banco
+            bool hasAny = await _context.Estabelecimento.AnyAsync(x => x.Id == obj.Id); //testa se no banco de dados tem um mesmo Id do obj
+            if (!hasAny)
             {
                 throw new NotFoundException("Id not found"); 
             }
             try 
             {
                 _context.Update(obj); //atualiza
-                _context.SaveChanges();
+                await _context.SaveChangesAsync();
             }
             catch (DbUpdateConcurrencyException e) //exceção de concorrência do banco de dados
             {
