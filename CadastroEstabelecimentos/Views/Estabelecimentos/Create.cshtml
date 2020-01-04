@@ -1,4 +1,4 @@
-﻿@model CadastroEstabelecimentos.Models.Estabelecimento
+﻿@model CadastroEstabelecimentos.Models.ViewModels.EstabelecimentoFormViewModel
 
 @{
     ViewData["Title"] = "Create";
@@ -12,44 +12,49 @@
     <div class="col-md-4">
         <form asp-action="Create">
             <div class="form-group">
-                <label asp-for="RazaoSocial" class="control-label"></label>
-                <input asp-for="RazaoSocial" class="form-control" />
+                <label asp-for="Estabelecimento.RazaoSocial" class="control-label"></label>
+                <input asp-for="Estabelecimento.RazaoSocial" class="form-control" />
             </div>
             <div class="form-group">
-                <label asp-for="Cnpj" class="control-label"></label>
-                <input asp-for="Cnpj" class="form-control" />
+                <label asp-for="Estabelecimento.Cnpj" class="control-label"></label>
+                <input asp-for="Estabelecimento.Cnpj" class="form-control" />
             </div>
             <div class="form-group">
-                <label asp-for="Email" class="control-label"></label>
-                <input asp-for="Email" class="form-control" />
+                <label asp-for="Estabelecimento.Email" class="control-label"></label>
+                <input asp-for="Estabelecimento.Email" class="form-control" />
             </div>
             <div class="form-group">
-                <label asp-for="Endereco" class="control-label"></label>
-                <input asp-for="Endereco" class="form-control" />
+                <label asp-for="Estabelecimento.Endereco" class="control-label"></label>
+                <input asp-for="Estabelecimento.Endereco" class="form-control" />
             </div>
             <div class="form-group">
-                <label asp-for="Cidade" class="control-label"></label>
-                <input asp-for="Cidade" class="form-control" />
+                <label asp-for="Estabelecimento.Cidade" class="control-label"></label>
+                <input asp-for="Estabelecimento.Cidade" class="form-control" />
             </div>
             <div class="form-group">
-                <label asp-for="Estado" class="control-label"></label>
-                <input asp-for="Estado" class="form-control" />
+                <label asp-for="Estabelecimento.Estado" class="control-label"></label>
+                <input asp-for="Estabelecimento.Estado" class="form-control" />
             </div>
             <div class="form-group">
-                <label asp-for="Telefone" class="control-label"></label>
-                <input asp-for="Telefone" class="form-control" />
+                <label asp-for="Estabelecimento.Telefone" class="control-label"></label>
+                <input asp-for="Estabelecimento.Telefone" class="form-control" />
             </div>
             <div class="form-group">
-                <label asp-for="DataCadastro" class="control-label"></label>
-                <input asp-for="DataCadastro" class="form-control" />
+                <label asp-for="Estabelecimento.DataCadastro" class="control-label"></label>
+                <input asp-for="Estabelecimento.DataCadastro" class="form-control" />
             </div>
             <div class="form-group">
-                <label asp-for="Agencia" class="control-label"></label>
-                <input asp-for="Agencia" class="form-control" />
+                <label asp-for="Estabelecimento.Agencia" class="control-label"></label>
+                <input asp-for="Estabelecimento.Agencia" class="form-control" />
             </div>
             <div class="form-group">
-                <label asp-for="Conta" class="control-label"></label>
-                <input asp-for="Conta" class="form-control" />
+                <label asp-for="Estabelecimento.Conta" class="control-label"></label>
+                <input asp-for="Estabelecimento.Conta" class="form-control" />
+            </div>
+            <!-- Selecionar a categoria-->
+            <div class="form-group">
+                <label asp-for="Estabelecimento.CategoriaId" class="control-label"></label>
+                <select asp-for="Estabelecimento.CategoriaId" asp-items="@(new SelectList(Model.Categorias,"Id","Nome"))" class="form-control"></select>
             </div>
             <div class="form-group">
                 <input type="submit" value="Create" class="btn btn-default" />

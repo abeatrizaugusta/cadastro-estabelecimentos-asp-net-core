@@ -27,6 +27,7 @@ namespace CadastroEstabelecimentos
                     options.UseMySql(Configuration.GetConnectionString("CadastroEstabelecimentosContext"), builder =>
                         builder.MigrationsAssembly("CadastroEstabelecimentos")));
             services.AddScoped<EstabelecimentoService>();
+            services.AddScoped<CategoriaService>();
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
