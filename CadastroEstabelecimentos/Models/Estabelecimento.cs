@@ -10,6 +10,7 @@ namespace CadastroEstabelecimentos.Models
         [Display(Name ="Razão Social")]
         public string RazaoSocial { get; set; }
 
+        [DisplayFormat(DataFormatString = "{0:000\\.000\\.000-00}", ApplyFormatInEditMode = true)]
         public string Cnpj { get; set; }
         [DataType(DataType.EmailAddress)] //transforma o email em link
         public string Email { get; set; }

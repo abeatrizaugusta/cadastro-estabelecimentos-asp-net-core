@@ -3,7 +3,7 @@
 @{
     ViewData["Title"] = "Create";
 }
-
+    
 <h1>@ViewData["Title"]</h1>
 
 <h4>Estabelecimento</h4>
@@ -18,7 +18,7 @@
             </div>
             <div class="form-group">
                 <label asp-for="Estabelecimento.Cnpj" class="control-label"></label>
-                <input asp-for="Estabelecimento.Cnpj" class="form-control" />
+                <input id="cnpj" asp-for="Estabelecimento.Cnpj"  class="form-control" />
             </div>
             <div class="form-group">
                 <label asp-for="Estabelecimento.Email" class="control-label"></label>
@@ -38,7 +38,7 @@
             </div>
             <div class="form-group">
                 <label asp-for="Estabelecimento.Telefone" class="control-label"></label>
-                <input asp-for="Estabelecimento.Telefone" class="form-control" />
+                <input id="telefone" asp-for="Estabelecimento.Telefone" class="form-control" />
             </div>
             <div class="form-group">
                 <label asp-for="Estabelecimento.DataCadastro" class="control-label"></label>
@@ -46,11 +46,11 @@
             </div>
             <div class="form-group">
                 <label asp-for="Estabelecimento.Agencia" class="control-label"></label>
-                <input asp-for="Estabelecimento.Agencia" class="form-control" />
+                <input id="agencia" asp-for="Estabelecimento.Agencia" class="form-control" />
             </div>
             <div class="form-group">
                 <label asp-for="Estabelecimento.Conta" class="control-label"></label>
-                <input asp-for="Estabelecimento.Conta" class="form-control" />
+                <input id="conta" asp-for="Estabelecimento.Conta" class="form-control" />
             </div>
             <!-- Selecionar a categoria-->
             <div class="form-group">
@@ -75,3 +75,4 @@
         </form>
     </div>
 </div>
+
