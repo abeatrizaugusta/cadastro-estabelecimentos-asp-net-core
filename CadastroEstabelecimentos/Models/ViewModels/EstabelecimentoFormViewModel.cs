@@ -1,4 +1,5 @@
-﻿using System;
+﻿using CadastroEstabelecimentos.Models.Enums;
+using System;
 using System.Collections.Generic;
 
 namespace CadastroEstabelecimentos.Models.ViewModels
@@ -8,5 +9,6 @@ namespace CadastroEstabelecimentos.Models.ViewModels
         //dados necessários para o formulário: dados do estabelecimento e lista de categorias
         public Estabelecimento Estabelecimento{ get; set; }
         public ICollection<Categoria> Categorias{ get; set; }
+        public EstabeStatus Status { get; set; }
     }
 }

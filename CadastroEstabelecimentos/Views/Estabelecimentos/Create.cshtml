@@ -55,7 +55,19 @@
             <!-- Selecionar a categoria-->
             <div class="form-group">
                 <label asp-for="Estabelecimento.CategoriaId" class="control-label"></label>
-                <select asp-for="Estabelecimento.CategoriaId" asp-items="@(new SelectList(Model.Categorias,"Id","Nome"))" class="form-control"></select>
+                <select asp-for="Estabelecimento.CategoriaId" asp-items="@(new SelectList(Model.Categorias, "Id", "Nome"))" class="form-control"></select>
+            </div>
+            <div class="form-group">
+                <label asp-for="Estabelecimento.Status" class="control-label"></label>
+                <label>
+                    <input type="radio" name="Status" value="0">
+                    Inativo
+                </label>
+                <label>
+                    <input type="radio" name="Status" value="1">
+                    Ativo
+                </label>
+
             </div>
             <div class="form-group">
                 <input type="submit" value="Create" class="btn btn-default" />

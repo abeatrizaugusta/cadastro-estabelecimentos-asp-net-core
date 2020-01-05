@@ -10,7 +10,6 @@ namespace CadastroEstabelecimentos.Models
         [Display(Name ="Razão Social")]
         public string RazaoSocial { get; set; }
 
-        [DisplayFormat(DataFormatString = "{0:000\\.000\\.000-00}", ApplyFormatInEditMode = true)]
         public string Cnpj { get; set; }
         [DataType(DataType.EmailAddress)] //transforma o email em link
         public string Email { get; set; }
@@ -25,6 +24,7 @@ namespace CadastroEstabelecimentos.Models
         public DateTime DataCadastro { get; set; }
         public string Agencia { get; set; }
         public string Conta { get; set; }
+        [Display(Name = "Status")]
         public EstabeStatus Status { get; set; } //Ativo ou Inativo
         public Categoria Categoria { get; set; } //Categoria do Estabelecimento (Supermercado, Restaurante, Borracharia, Posto, Oficina)
         [Display(Name = "Categoria")]
