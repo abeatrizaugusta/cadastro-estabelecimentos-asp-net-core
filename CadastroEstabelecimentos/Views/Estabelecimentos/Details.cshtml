@@ -2,80 +2,79 @@
 @{
     ViewData["Title"] = "Details";
 }
+<div class="card">
+    <div class="card-header">
+        <h4>Detalhes do Estabelecimento</h4>
+    </div>
+    <div class="card-body">
+        <div class="row">
+            <ul>
+                <li>
+                    <b>@Html.DisplayNameFor(model => model.RazaoSocial):</b>
 
-<h1>@ViewData["Title"]</h1>
-<div>
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.RazaoSocial)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.RazaoSocial)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.Cnpj)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Cnpj)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.Email)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Email)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.Endereco)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Endereco)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.Cidade)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Cidade)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.Estado)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Estado)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.Telefone)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Telefone)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.DataCadastro)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.DataCadastro)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.Agencia)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Agencia)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.Conta)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Conta)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.Categoria)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Categoria.Nome)
-        </dd>
-    </dl>
-</div>
-<div>
-    <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-default">Edit</a>
-    <a asp-action="Index">Back to list</a>
+                    @Html.DisplayFor(model => model.RazaoSocial)
+                </li>
+                <li>
+                    <b>@Html.DisplayNameFor(model => model.NomeFantasia):</b>
+                    @Html.DisplayFor(model => model.NomeFantasia)
+                </li>
+                <li>
+                    <b>@Html.DisplayNameFor(model => model.Cnpj):</b>
+                    @Html.DisplayFor(model => model.Cnpj)
+                </li>
+                <li>
+                    <b>@Html.DisplayNameFor(model => model.Email):</b>
+                    @Html.DisplayFor(model => model.Email)
+                </li>
+                <li>
+                    <b>@Html.DisplayNameFor(model => model.Endereco):</b>
+
+                    @Html.DisplayFor(model => model.Endereco)
+                </li>
+                <li>
+                    <b>@Html.DisplayNameFor(model => model.Cidade):</b>
+
+                    @Html.DisplayFor(model => model.Cidade)
+                </li>
+                <li>
+                    <b>@Html.DisplayNameFor(model => model.Estado):</b>
+
+                    @Html.DisplayFor(model => model.Estado)
+                </li>
+                <li>
+                    <b>@Html.DisplayNameFor(model => model.Telefone):</b>
+
+                    @Html.DisplayFor(model => model.Telefone)
+                </li>
+                <li>
+                    <b>@Html.DisplayNameFor(model => model.DataCadastro):</b>
+
+                    @Html.DisplayFor(model => model.DataCadastro)
+                </li>
+                <li>
+                    <b>@Html.DisplayNameFor(model => model.Agencia)</b>
+
+                    @Html.DisplayFor(model => model.Agencia)
+                </li>
+                <li>
+                    <b>@Html.DisplayNameFor(model => model.Conta):</b>
+
+                    @Html.DisplayFor(model => model.Conta)
+                </li>
+                <li>
+                    <b>@Html.DisplayNameFor(model => model.Categoria)</b>
+
+                    @Html.DisplayFor(model => model.Categoria.Nome)
+                </li>
+            </ul>
+
+        </div>
+        <div class="form-group">
+            <a class="btn btn-success" type="button" asp-action="Edit" asp-route-id="@Model.Id">Editar</a>
+            <a class="btn btn-warning" type="button" asp-action="Index">Voltar para Lista</a>
+
+            
+        </div>
+    </div>
 </div>
 

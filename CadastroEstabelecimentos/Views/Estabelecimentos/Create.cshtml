@@ -1,78 +1,126 @@
 ﻿@model CadastroEstabelecimentos.Models.ViewModels.EstabelecimentoFormViewModel
 
-@{
-    ViewData["Title"] = "Create";
-}
-    
-<h1>@ViewData["Title"]</h1>
 
-<h4>Estabelecimento</h4>
-<hr />
-<div class="row">
-    <div class="col-md-4">
-        <form asp-action="Create">
+<div class="card">
+    <div class="card-header">
+        <h4>Cadastro de Estabelecimentos</h4>
+    </div>
+    <div class="card-body">
+        <hr />
+        <div class="row">
+            <div class="col-md-12">
+                <form asp-action="Create">
+                    <div asp-validation-summary="All" class="text-danger"></div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label asp-for="Estabelecimento.RazaoSocial" class="control-label"></label>
+                                <input asp-for="Estabelecimento.RazaoSocial" class="form-control" />
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label asp-for="Estabelecimento.NomeFantasia" class="control-label"></label>
+                                <input asp-for="Estabelecimento.NomeFantasia" class="form-control" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label asp-for="Estabelecimento.Cnpj" class="control-label"></label>
+                                <input id="cnpj" asp-for="Estabelecimento.Cnpj" class="form-control" />
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label asp-for="Estabelecimento.Email" class="control-label"></label>
+                                <input asp-for="Estabelecimento.Email" class="form-control" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label asp-for="Estabelecimento.Endereco" class="control-label"></label>
+                                <input asp-for="Estabelecimento.Endereco" class="form-control" />
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label asp-for="Estabelecimento.Cidade" class="control-label"></label>
+                                <input asp-for="Estabelecimento.Cidade" class="form-control" />
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label asp-for="Estabelecimento.Estado" class="control-label"></label>
+                                <input asp-for="Estabelecimento.Estado" class="form-control" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label asp-for="Estabelecimento.Telefone" class="control-label"></label>
+                                <input id="telefone" asp-for="Estabelecimento.Telefone" class="form-control" />
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label asp-for="Estabelecimento.DataCadastro" class="control-label"></label>
+                                <input asp-for="Estabelecimento.DataCadastro" class="form-control" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label asp-for="Estabelecimento.Agencia" class="control-label"></label>
+                                <input id="agencia" asp-for="Estabelecimento.Agencia" class="form-control" />
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label asp-for="Estabelecimento.Conta" class="control-label"></label>
+                                <input id="conta" asp-for="Estabelecimento.Conta" class="form-control" />
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Selecionar a categoria-->
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label asp-for="Estabelecimento.CategoriaId" class="control-label"></label>
+                                <select asp-for="Estabelecimento.CategoriaId" asp-items="@(new SelectList(Model.Categorias, "Id", "Nome"))" class="form-control"></select>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label asp-for="Estabelecimento.Status" class="control-label"></label>
+                                <label>
+                                    <input type="radio" name="Status" value="0">
+                                    Inativo
+                                </label>
+                                <label>
+                                    <input type="radio" name="Status" value="1">
+                                    Ativo
+                                </label>
 
-            <div class="form-group">
-                <label asp-for="Estabelecimento.RazaoSocial" class="control-label"></label>
-                <input asp-for="Estabelecimento.RazaoSocial" class="form-control" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <input type="submit" value="Cadastrar" class="btn btn-success" />
+                    </div>
+                </form>
             </div>
-            <div class="form-group">
-                <label asp-for="Estabelecimento.Cnpj" class="control-label"></label>
-                <input id="cnpj" asp-for="Estabelecimento.Cnpj"  class="form-control" />
-            </div>
-            <div class="form-group">
-                <label asp-for="Estabelecimento.Email" class="control-label"></label>
-                <input asp-for="Estabelecimento.Email" class="form-control" />
-            </div>
-            <div class="form-group">
-                <label asp-for="Estabelecimento.Endereco" class="control-label"></label>
-                <input asp-for="Estabelecimento.Endereco" class="form-control" />
-            </div>
-            <div class="form-group">
-                <label asp-for="Estabelecimento.Cidade" class="control-label"></label>
-                <input asp-for="Estabelecimento.Cidade" class="form-control" />
-            </div>
-            <div class="form-group">
-                <label asp-for="Estabelecimento.Estado" class="control-label"></label>
-                <input asp-for="Estabelecimento.Estado" class="form-control" />
-            </div>
-            <div class="form-group">
-                <label asp-for="Estabelecimento.Telefone" class="control-label"></label>
-                <input id="telefone" asp-for="Estabelecimento.Telefone" class="form-control" />
-            </div>
-            <div class="form-group">
-                <label asp-for="Estabelecimento.DataCadastro" class="control-label"></label>
-                <input asp-for="Estabelecimento.DataCadastro" class="form-control" />
-            </div>
-            <div class="form-group">
-                <label asp-for="Estabelecimento.Agencia" class="control-label"></label>
-                <input id="agencia" asp-for="Estabelecimento.Agencia" class="form-control" />
-            </div>
-            <div class="form-group">
-                <label asp-for="Estabelecimento.Conta" class="control-label"></label>
-                <input id="conta" asp-for="Estabelecimento.Conta" class="form-control" />
-            </div>
-            <!-- Selecionar a categoria-->
-            <div class="form-group">
-                <label asp-for="Estabelecimento.CategoriaId" class="control-label"></label>
-                <select asp-for="Estabelecimento.CategoriaId" asp-items="@(new SelectList(Model.Categorias, "Id", "Nome"))" class="form-control"></select>
-            </div>
-            <div class="form-group">
-                <label asp-for="Estabelecimento.Status" class="control-label"></label>
-                <label>
-                    <input type="radio" name="Status" value="0">
-                    Inativo
-                </label>
-                <label>
-                    <input type="radio" name="Status" value="1">
-                    Ativo
-                </label>
-
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-default" />
-            </div>
-        </form>
+        </div>
     </div>
 </div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
+
 

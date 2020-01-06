@@ -7,16 +7,21 @@ namespace CadastroEstabelecimentos.Models
     public class Estabelecimento
     {
         public int Id { get; set; }
-        [Display(Name ="Razão Social")]
+        [Required(ErrorMessage = "Obrigatório informar a Razão Social")]
+        [Display(Name = "Razão Social")]
         public string RazaoSocial { get; set; }
+        [Display(Name = "Nome Fantasia")]
+        public string NomeFantasia { get; set; }
 
-        [DisplayFormat(DataFormatString = "{0:000\\.000\\.000-00}", ApplyFormatInEditMode = true)]
+        [Required(ErrorMessage = "Obrigatório informar o CNPJ")]
         public string Cnpj { get; set; }
+
         [DataType(DataType.EmailAddress)] //transforma o email em link
         public string Email { get; set; }
         public string Endereco { get; set; }
         public string Cidade { get; set; }
         public string Estado { get; set; }
+
         public string Telefone { get; set; }
 
         [Display(Name = "Data de Cadastro")]
@@ -34,11 +39,11 @@ namespace CadastroEstabelecimentos.Models
         {
 
         }
-
-        public Estabelecimento(int id, string razaoSocial, string cnpj, string email, string endereco, string cidade, string estado, string telefone, DateTime dataCadastro, string agencia, string conta, EstabeStatus status, Categoria categoria)
+        public Estabelecimento(int id, string razaoSocial, string nomeFantasia, string cnpj, string email, string endereco, string cidade, string estado, string telefone, DateTime dataCadastro, string agencia, string conta, EstabeStatus status, Categoria categoria)
         {
             Id = id;
             RazaoSocial = razaoSocial;
+            NomeFantasia = nomeFantasia;
             Cnpj = cnpj;
             Email = email;
             Endereco = endereco;

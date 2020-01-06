@@ -60,5 +60,21 @@ namespace CadastroEstabelecimentos.Services
             }
         }
 
+        public async Task<List<Estabelecimento>> FindByDateAsync(DateTime? minDate, DateTime? maxDate)
+        {
+            var result = from obj in _context.Estabelecimento select obj; 
+            if (minDate.HasValue)
+            {
+                result = result.Where(x => x.DataCadastro >= minDate.Value); 
+            }
+            if (maxDate.HasValue)
+            {
+                result = result.Where(x => x.DataCadastro <= maxDate.Value);
+            }
+            return await result
+                .OrderByDescending(x => x.DataCadastro)
+                .ToListAsync();
+        }
+
     }
 }

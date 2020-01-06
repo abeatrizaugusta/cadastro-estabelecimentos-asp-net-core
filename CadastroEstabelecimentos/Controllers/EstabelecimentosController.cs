@@ -38,6 +38,12 @@ namespace CadastroEstabelecimentos.Controllers
         [ValidateAntiForgeryToken] //evitar ataques
         public async Task<IActionResult> Create(Estabelecimento estabelecimento)
         {
+            if (!ModelState.IsValid) //verifica se os campos foram preenchidos, se n for válido, retorna a view novamente
+            {
+                var categorias = await _categoriaService.FindAllAsync();
+                var viewModel = new EstabelecimentoFormViewModel { Estabelecimento = estabelecimento, Categorias = categorias };
+                return View(viewModel);
+            }
             await _estabelecimentoService.InsertAsync(estabelecimento);
             return RedirectToAction(nameof(Index));
         }
@@ -101,6 +107,12 @@ namespace CadastroEstabelecimentos.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, Estabelecimento estabelecimento)
         {
+            if (!ModelState.IsValid) //verifica se os campos foram preenchidos, se n for válido, retorna a view novamente
+            {
+                var categorias = await _categoriaService.FindAllAsync();
+                var viewModel = new EstabelecimentoFormViewModel { Estabelecimento = estabelecimento, Categorias = categorias };
+                return View(viewModel);
+            }
             if (id != estabelecimento.Id)
             {
                 return RedirectToAction(nameof(Error), new { message = "Id incompatível" });
@@ -126,5 +138,22 @@ namespace CadastroEstabelecimentos.Controllers
             };
             return View(viewModel);
         }
+
+        public async Task<IActionResult> SimpleSearch(DateTime? minDate, DateTime? maxDate)
+        {
+            if (!minDate.HasValue)
+            {
+                minDate = new DateTime(DateTime.Now.Year, 1, 1);
+            }
+            if (!maxDate.HasValue)
+            {
+                maxDate = DateTime.Now;
+            }
+            ViewData["minDate"] = minDate.Value.ToString("dd-MM-yyyy");
+            ViewData["maxDate"] = maxDate.Value.ToString("dd-MM-dd");
+            var result = await _estabelecimentoService.FindByDateAsync(minDate, maxDate);
+            return View(result);
+        }
+
     }
 }
